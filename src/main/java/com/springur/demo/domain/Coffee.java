@@ -2,16 +2,16 @@ package com.springur.demo.domain;
 
 import java.util.UUID;
 
-public class Coffe {
+public class Coffee {
     private final String id;
     private String name;
 
-    public Coffe(String id, String name) {
+    public Coffee(String id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Coffe(String name) {
+    public Coffee(String name) {
         this(UUID.randomUUID().toString(), name);
     }
 
