@@ -57,4 +57,11 @@ public class CoffeeController {
                 : new ResponseEntity<>(coffee, HttpStatus.OK);
     }
 
+    @DeleteMapping(value = "/coffees/{id}")
+    void deleteCoffee(@PathVariable String id) {
+        coffees.stream()
+                .filter(coffee -> coffee.getId().equals(id))
+                .findFirst()
+                .ifPresent(coffees::remove);
+    }
 }
