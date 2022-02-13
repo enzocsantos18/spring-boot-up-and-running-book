@@ -1,6 +1,6 @@
 package com.springur.demo.controllers;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.springur.demo.config.GreetingProperties;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/greeting")
 public class GreetingController {
 
-    @Value("${greeting-name: Mirage}")
-    private String name;
+    private GreetingProperties greetingProperties;
 
-    @Value("${greeting-coffee: ${greeting-name} is drinking Cáfe Ganador}")
-    private String coffee;
+    public GreetingController(GreetingProperties greetingProperties) {
+        this.greetingProperties = greetingProperties;
+    }
 
     @GetMapping
     String getGreeting() {
-        return "Welcome " + name + " :)";
+        return "Welcome " + greetingProperties.getName() + " :)";
     }
 
     @GetMapping("/coffee")
     String getNameAndCoffee() {
-        return coffee;
+        return greetingProperties.getCoffee();
     }
 }
