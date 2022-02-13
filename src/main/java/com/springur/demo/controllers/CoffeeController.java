@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/coffees")
 public class CoffeeController {
 
     private final CoffeeRepository coffeeRepository;
@@ -17,29 +18,29 @@ public class CoffeeController {
         this.coffeeRepository = coffeeRepository;
     }
 
-    @GetMapping(value = "/coffees")
+    @GetMapping
     Iterable<Coffee> getCoffees() {
         return coffeeRepository.findAll();
     }
 
-    @GetMapping(value = "/coffees/{id}")
+    @GetMapping("/{id}")
     Optional<Coffee> getCoffeeById(@PathVariable String id) {
         return coffeeRepository.findById(id);
     }
 
-    @PostMapping(value = "/coffees")
+    @PostMapping
     Coffee postCoffee(@RequestBody Coffee coffee) {
         return coffeeRepository.save(coffee);
     }
 
-    @PutMapping(value = "/coffees/{id}")
+    @PutMapping("/{id}")
     ResponseEntity<Coffee> putCoffee(@PathVariable String id, @RequestBody Coffee coffee) {
         return coffeeRepository.existsById(id)
                 ? new ResponseEntity<>(coffeeRepository.save(coffee), HttpStatus.OK)
                 : new ResponseEntity<>(coffeeRepository.save(coffee), HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "/coffees/{id}")
+    @DeleteMapping("/{id}")
     void deleteCoffee(@PathVariable String id) {
         coffeeRepository.deleteById(id);
     }
