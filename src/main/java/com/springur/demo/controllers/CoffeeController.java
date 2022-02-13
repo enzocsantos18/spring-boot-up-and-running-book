@@ -1,6 +1,8 @@
 package com.springur.demo.controllers;
 
 import com.springur.demo.domain.Coffee;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -37,6 +39,22 @@ public class CoffeeController {
     Coffee postCoffee(@RequestBody Coffee coffee) {
         coffees.add(coffee);
         return coffee;
+    }
+
+    @PutMapping(value = "/coffees/{id}")
+    ResponseEntity<Coffee> putCoffee(@PathVariable String id, @RequestBody Coffee coffee) {
+        int coffeeIndex = -1;
+
+        for (Coffee c : coffees) {
+            if (c.getId().equals(id)) {
+                coffeeIndex = coffees.indexOf(c);
+                coffees.set(coffeeIndex, coffee);
+            }
+        }
+
+        return (coffeeIndex == -1)
+                ? new ResponseEntity<>(postCoffee(coffee), HttpStatus.CREATED)
+                : new ResponseEntity<>(coffee, HttpStatus.OK);
     }
 
 }
