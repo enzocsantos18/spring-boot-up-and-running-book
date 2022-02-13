@@ -1,9 +1,7 @@
 package com.springur.demo.controllers;
 
 import com.springur.demo.domain.Coffee;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +25,18 @@ public class CoffeeController {
         return coffees;
     }
 
-    @GetMapping(value = "/coffes/{id}")
+    @GetMapping(value = "/coffees/{id}")
     Optional<Coffee> getCoffeeById(@PathVariable String id) {
         return coffees
                 .stream()
                 .filter(coffee -> coffee.getId().equals(id))
                 .findFirst();
+    }
+
+    @PostMapping(value = "/coffees")
+    Coffee getCoffeeById(@RequestBody Coffee coffee) {
+        coffees.add(coffee);
+        return coffee;
     }
 
 }
