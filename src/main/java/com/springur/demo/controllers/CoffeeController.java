@@ -2,10 +2,12 @@ package com.springur.demo.controllers;
 
 import com.springur.demo.domain.Coffee;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class CoffeeController {
@@ -21,9 +23,16 @@ public class CoffeeController {
     }
 
     @GetMapping(value = "/coffees")
-    Iterable<Coffee> getCoffes() {
+    Iterable<Coffee> getCoffees() {
         return coffees;
     }
 
+    @GetMapping(value = "/coffes/{id}")
+    Optional<Coffee> getCoffeeById(@PathVariable String id) {
+        return coffees
+                .stream()
+                .filter(coffee -> coffee.getId().equals(id))
+                .findFirst();
+    }
 
 }
