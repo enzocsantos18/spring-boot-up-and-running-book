@@ -34,7 +34,7 @@ public class CoffeeController {
     }
 
     @PostMapping(value = "/coffees")
-    Coffee getCoffeeById(@RequestBody Coffee coffee) {
+    Coffee postCoffee(@RequestBody Coffee coffee) {
         coffees.add(coffee);
         return coffee;
     }
