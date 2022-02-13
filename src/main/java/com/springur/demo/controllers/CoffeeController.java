@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -16,12 +15,6 @@ public class CoffeeController {
 
     public CoffeeController(CoffeeRepository coffeeRepository) {
         this.coffeeRepository = coffeeRepository;
-        this.coffeeRepository.saveAll(List.of(
-                new Coffee("Café Cereza"),
-                new Coffee("Café Ganador"),
-                new Coffee("Café Lareño"),
-                new Coffee("Café Três Pontas")
-        ));
     }
 
     @GetMapping(value = "/coffees")
